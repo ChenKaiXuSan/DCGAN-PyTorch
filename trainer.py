@@ -11,12 +11,6 @@ import torch.nn as nn
 import torchvision
 from torchvision.utils import save_image
 
-import numpy as np
-
-import sys 
-sys.path.append('.')
-sys.path.append('..')
-
 from models.dcgan import Generator, Discriminator
 from utils.utils import *
 
@@ -30,7 +24,6 @@ class Trainer_dcgan(object):
 
         # exact model and loss 
         self.model = config.model
-        self.adv_loss = config.adv_loss
 
         # model hyper-parameters
         self.imsize = config.img_size 
@@ -39,10 +32,7 @@ class Trainer_dcgan(object):
         self.channels = config.channels
         self.g_conv_dim = config.g_conv_dim
         self.d_conv_dim = config.d_conv_dim
-        self.parallel = config.parallel
-        self.clip_value = config.clip_value
 
-        self.lambda_gp = config.lambda_gp
         self.epochs = config.epochs
         self.batch_size = config.batch_size
         self.num_workers = config.num_workers 
@@ -77,7 +67,7 @@ class Trainer_dcgan(object):
         '''
 
         # fixed input for debugging
-        fixed_z = tensor2var(torch.randn(self.batch_size, self.z_dim)) # （*, 100）
+        fixed_z = tensor2var(torch.randn(self.batch_size, self.z_dim, 1, 1)) # (*, 100, 1, 1)
 
         for epoch in range(self.epochs):
             # start time
@@ -160,13 +150,13 @@ class Trainer_dcgan(object):
                     save_sample(self.sample_path + '/fake_images/', fake_images, epoch)
                     
                 # sample sample one images
-                # self.number_real, self.number_fake = save_sample_one_image(self.G, self.sample_path, real_images, epoch, z_dim=self.z_dim, n_classes=self.n_classes)
+                save_sample_one_image(self.sample_path, real_images, fake_images, epoch)
 
 
     def build_model(self):
 
-        self.G = Generator(batch_size = self.batch_size, image_size = self.imsize, z_dim = self.z_dim, conv_dim = self.g_conv_dim, channels = self.channels).cuda()
-        self.D = Discriminator(batch_size = self.batch_size, image_size = self.imsize, conv_dim = self.d_conv_dim, channels = self.channels).cuda()
+        self.G = Generator(image_size = self.imsize, z_dim = self.z_dim, conv_dim = self.g_conv_dim, channels = self.channels).cuda()
+        self.D = Discriminator(image_size = self.imsize, conv_dim = self.d_conv_dim, channels = self.channels).cuda()
 
         # apply the weights_init to randomly initialize all weights
         # to mean=0, stdev=0.2

@@ -4,7 +4,7 @@
 This repository contains an Pytorch implementation of Deep Convolution GAN and Linear GAN structure.
 With full coments and my code style.
 
-## About WGAN
+## About DCGAN
 If you're new to DCGAN, here's an abstract straight from the paper[1]:
 
 In recent years, supervised learning with convolutional networks (CNNs) has seen huge adoption in computer vision applications. Comparatively, unsupervised learning with CNNs has received less attention. In this work we hope to help bridge the gap between the success of CNNs for supervised learning and unsuper- vised learning. We introduce a class ofCNNs called deep convolutional generative adversarial networks (DCGANs), that have certain architectural constraints, and demonstrate that they are a strong candidate for unsupervised learning. Training on various image datasets, we show convincing evidence that our deep convolu- tional adversarial pair learns a hierarchy of representations from object parts to scenes in both the generator and discriminator. Additionally, we use the learned features for novel tasks - demonstrating their applicability as general image representations.
@@ -83,12 +83,14 @@ FID is a measure of similarity between two datasets of images. It was shown to c
 For the FID, I use the pytorch implement of this repository. [FID score for PyTorch](https://github.com/mseitzer/pytorch-fid)
 
 - MNIST
-fFor the 10k epochs training on MNIST dataset, I get the FID: 
+For the 10k epochs training on MNIST dataset, I get the FID: 
 > 50.39915910592188 
 - CIFAR10
 For the 10k epochs training on the CIFAR10 dataset, I get the FID: 
 > 86.59441398667008
 - FASHION-MNIST
+For the 10k epochs training on the CIFAR10 dataset, I get the FID: 
+>  95.55456444871709
 
 > :warning: I dont konw if the FID is right or not, because I cant get the lowwer score like the paper or the other people get it. 
 ## Network structure
@@ -145,11 +147,12 @@ Discriminator(
 )
 ```
 ## Result
-- MNIST
+- MNIST  
 ![9900_MNSIT](img/9900_MNIST.png)
-- CIFAR10
+- CIFAR10  
 ![9900_cifar10](img/9900_cifar10.png)
 - Fashion-MNIST
+![9900_fashion](img/9900_fashion.png)
 ## Reference
 1. [DCGAN](https://arxiv.org/abs/1511.06434)
 2. [GAN](https://arxiv.org/abs/1406.2661)

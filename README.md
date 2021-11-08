@@ -84,10 +84,12 @@ For the FID, I use the pytorch implement of this repository. [FID score for PyTo
 
 - MNIST
 For the 10k epochs training on MNIST dataset, I get the FID: 
-> 50.39915910592188 
+> 50.39915910592188 :warning: this score test with about 2430 sample images.
+> 45.773477203217055 :warning: this score test with about 10330 sample images, like the FID paper said that.
 - CIFAR10
 For the 10k epochs training on the CIFAR10 dataset, I get the FID: 
-> 86.59441398667008
+> 86.59441398667008 :warning: this score test with about 2430 sample images.
+> 81.78541562553767 :warning: this score test with about 10330 sample images, like the FID paper said that.
 - FASHION-MNIST
 For the 10k epochs training on the CIFAR10 dataset, I get the FID: 
 >  95.55456444871709

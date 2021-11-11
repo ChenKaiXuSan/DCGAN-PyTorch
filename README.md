@@ -77,6 +77,12 @@ optional arguments:
 - Cifar10
 `python3 main.py --dataset cifar10 --channels 3 -version [version] --batch_size [] >logs/[log_path]`
 
+## Tensorboard 
+The G loss and D loss record by the tensorboard in the folder, /logs.
+``` python
+tensorboard --logdir logs/
+```
+
 ## FID
 FID is a measure of similarity between two datasets of images. It was shown to correlate well with human judgement of visual quality and is most often used to evaluate the quality of samples of Generative Adversarial Networks. FID is calculated by computing the Fréchet distance between two Gaussians fitted to feature representations of the Inception network.
 
@@ -92,7 +98,8 @@ For the 10k epochs training on the CIFAR10 dataset, I get the FID:
 > 81.78541562553767 :warning: this score test with about 10330 sample images, like the FID paper said that.
 - FASHION-MNIST
 For the 10k epochs training on the CIFAR10 dataset, I get the FID: 
->  95.55456444871709
+> 95.55456444871709 :warning: this score test with about 2430 sample images.
+> 86.51294408805859 :warning: this score test with about 10330 sample images, like the FID paper said that.
 
 > :warning: I dont konw if the FID is right or not, because I cant get the lowwer score like the paper or the other people get it. 
 ## Network structure

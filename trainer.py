@@ -67,7 +67,8 @@ class Trainer_dcgan(object):
         '''
 
         # fixed input for debugging
-        fixed_z = tensor2var(torch.randn(10000, self.z_dim, 1, 1)) # (10000, 100, 1, 1)
+        # I think if the batch size very large, the cpu memory will oversize.
+        fixed_z = tensor2var(torch.randn(self.batch_size, self.z_dim, 1, 1)) # (10000, 100, 1, 1)
 
         for epoch in range(self.epochs):
             # start time

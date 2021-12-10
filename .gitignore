@@ -131,3 +131,4 @@ dmypy.json
 test_sample/
 samples/
 checkpoint/
+logs/

@@ -33,7 +33,7 @@ class Trainer_dcgan(object):
         self.g_conv_dim = config.g_conv_dim
         self.d_conv_dim = config.d_conv_dim
 
-        self.epochs = config.epochs
+        self.epochs = config.epochs + 1
         self.batch_size = config.batch_size
         self.num_workers = config.num_workers 
         self.g_lr = config.g_lr
@@ -44,13 +44,17 @@ class Trainer_dcgan(object):
 
         self.dataset = config.dataset 
         self.use_tensorboard = config.use_tensorboard
+
         # path
         self.image_path = config.dataroot 
         self.log_path = config.log_path
         self.sample_path = config.sample_path
+        self.version = config.version
+
+        # step 
         self.log_step = config.log_step
         self.sample_step = config.sample_step
-        self.version = config.version
+        self.model_save_step = config.model_save_step
 
         # path with version
         self.log_path = os.path.join(config.log_path, self.version)
@@ -140,33 +144,33 @@ class Trainer_dcgan(object):
             if (epoch) % self.log_step == 0:
                 elapsed = time.time() - start_time
                 elapsed = str(datetime.timedelta(seconds=elapsed))
-                print("Elapsed [{}], G_step [{}/{}], D_step[{}/{}], d_out: {:.4f}, g_loss: {:.4f}, "
+                print("Elapsed [{}], G_step [{}/{}], D_step[{}/{}], d_loss: {:.4f}, g_loss: {:.4f}, "
                     .format(elapsed, epoch, self.epochs, epoch,
                             self.epochs, d_loss.item(), g_loss_fake.item()))
 
             # sample images 
-            if (epoch) % self.sample_step == 0:
-                self.G.eval()
-                # save real image
-                save_sample(self.sample_path + '/real_images/', real_images, epoch)
+            # if (epoch) % self.sample_step == 0:
+            #     self.G.eval()
+            #     # save real image
+            #     save_sample(self.sample_path + '/real_images/', real_images, epoch)
                 
-                with torch.no_grad():
-                    fake_images = self.G(fixed_z)
-                    # save fake image 
-                    save_sample(self.sample_path + '/fake_images/', fake_images, epoch)
+            #     with torch.no_grad():
+            #         fake_images = self.G(fixed_z)
+            #         # save fake image 
+            #         save_sample(self.sample_path + '/fake_images/', fake_images, epoch)
                     
-                # sample sample one images
-                save_sample_one_image(self.sample_path, real_images, fake_images, epoch)
+            #     # sample sample one images
+            #     save_sample_one_image(self.sample_path, real_images, fake_images, epoch)
 
             # save model checkpoint
-            if (epochs) % self.model_save_path == 0:
+            if (epoch) % self.model_save_step == 0:
                 torch.save({
-                    'epoch': epochs,
-                    'model_state_dict': self.G.state_dict(),
-                    'optimizer_state_dict': self.g_optimizer.state_dict(),
-                    'loss': g_loss_fake.item(),
+                    'epoch': epoch,
+                    'G_state_dict': self.G.state_dict(),
+                    # 'G_optimizer_state_dict': self.g_optimizer.state_dict(),
+                    'loss': g_loss_fake,
                 },
-                os.path.join(self.model_save_path, epochs + '.pth.tar')
+                os.path.join(self.model_save_path, '{}_G.pth.tar'.format(epoch))
                 )
 
 

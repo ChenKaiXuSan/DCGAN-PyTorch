@@ -50,9 +50,9 @@ def get_parameters():
     parser.add_argument('--sample_path', type=str, default='./samples', help='the generated sample saved path')
 
     # Step size
-    parser.add_argument('--log_step', type=int, default=10, help='every default{10} epoch save to the log')
-    parser.add_argument('--sample_step', type=int, default=100, help='every default{100} epoch save the generated images and real images')
-    parser.add_argument('--model_save_step', type=float, default=100)
+    parser.add_argument('--log_step', type=int, default=100, help='every default{10} epoch save to the log')
+    parser.add_argument('--sample_step', type=int, default=1000, help='every default{100} epoch save the generated images and real images')
+    parser.add_argument('--model_save_step', type=int, default=1000)
 
 
     return parser.parse_args()

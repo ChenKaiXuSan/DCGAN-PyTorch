@@ -126,3 +126,4 @@ def save_sample(path, images, epoch):
         epoch (int): now epoch int, for the save image name
     '''    
     save_image(images.data[:100], os.path.join(path, '{}.png'.format(epoch)), normalize=True, nrow=10)
+

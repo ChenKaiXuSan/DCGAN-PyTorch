@@ -55,11 +55,16 @@ class Trainer_dcgan(object):
         # path with version
         self.log_path = os.path.join(config.log_path, self.version)
         self.sample_path = os.path.join(config.sample_path, self.version)
+        self.model_save_path = os.path.join(config.model_save_path, self.version)
 
         if self.use_tensorboard:
             self.build_tensorboard()
 
         self.build_model()
+
+        # start with trained model 
+        # if self.pretrained_model:
+        #     self.load_pretrained_model()
 
     def train(self):
         '''
@@ -135,7 +140,7 @@ class Trainer_dcgan(object):
             if (epoch) % self.log_step == 0:
                 elapsed = time.time() - start_time
                 elapsed = str(datetime.timedelta(seconds=elapsed))
-                print("Elapsed [{}], G_step [{}/{}], D_step[{}/{}], d_out_gp: {:.4f}, g_loss: {:.4f}, "
+                print("Elapsed [{}], G_step [{}/{}], D_step[{}/{}], d_out: {:.4f}, g_loss: {:.4f}, "
                     .format(elapsed, epoch, self.epochs, epoch,
                             self.epochs, d_loss.item(), g_loss_fake.item()))
 
@@ -152,6 +157,17 @@ class Trainer_dcgan(object):
                     
                 # sample sample one images
                 save_sample_one_image(self.sample_path, real_images, fake_images, epoch)
+
+            # save model checkpoint
+            if (epochs) % self.model_save_path == 0:
+                torch.save({
+                    'epoch': epochs,
+                    'model_state_dict': self.G.state_dict(),
+                    'optimizer_state_dict': self.g_optimizer.state_dict(),
+                    'loss': g_loss_fake.item(),
+                },
+                os.path.join(self.model_save_path, epochs + '.pth.tar')
+                )
 
 
     def build_model(self):

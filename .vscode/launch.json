@@ -21,5 +21,22 @@
                 "dcgan",
             ]
         },
+        {
+            "name": "fid",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceRoot}/FID/pytorch_fid.py",
+            "console": "integratedTerminal",
+            // "args": [
+            //     "--dataset",
+            //     "mnist",
+            //     "--channels",
+            //     "1",
+            //     "--version",
+            //     "debug",
+            //     "--model",
+            //     "dcgan",
+            // ]
+        },
     ]
 }

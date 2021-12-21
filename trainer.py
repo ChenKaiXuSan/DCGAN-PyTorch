@@ -9,7 +9,6 @@ import datetime
 
 import torch.nn as nn 
 import torchvision
-from torchvision.utils import save_image
 
 from models.dcgan import Generator, Discriminator
 from utils.utils import *
@@ -77,7 +76,7 @@ class Trainer_dcgan(object):
 
         # fixed input for debugging
         # I think if the batch size very large, the cpu memory will oversize.
-        fixed_z = tensor2var(torch.randn(self.batch_size, self.z_dim, 1, 1)) # (10000, 100, 1, 1)
+        fixed_z = tensor2var(torch.randn(self.batch_size, self.z_dim, 1, 1)) # (*, 100, 1, 1)
 
         for epoch in range(self.epochs):
             # start time
@@ -168,9 +167,11 @@ class Trainer_dcgan(object):
                     'epoch': epoch,
                     'G_state_dict': self.G.state_dict(),
                     # 'G_optimizer_state_dict': self.g_optimizer.state_dict(),
-                    'loss': g_loss_fake,
+                    'g_loss': g_loss_fake,
+                    'D_state_dict': self.D.state_dict(),
+                    'd_loss': d_loss,
                 },
-                os.path.join(self.model_save_path, '{}_G.pth.tar'.format(epoch))
+                os.path.join(self.model_save_path, '{}.pth.tar'.format(epoch))
                 )
 
 

@@ -148,18 +148,18 @@ class Trainer_dcgan(object):
                             self.epochs, d_loss.item(), g_loss_fake.item()))
 
             # sample images 
-            # if (epoch) % self.sample_step == 0:
-            #     self.G.eval()
-            #     # save real image
-            #     save_sample(self.sample_path + '/real_images/', real_images, epoch)
+            if (epoch) % self.sample_step == 0:
+                self.G.eval()
+                # save real image
+                save_sample(self.sample_path + '/real_images/', real_images, epoch)
                 
-            #     with torch.no_grad():
-            #         fake_images = self.G(fixed_z)
-            #         # save fake image 
-            #         save_sample(self.sample_path + '/fake_images/', fake_images, epoch)
+                with torch.no_grad():
+                    fake_images = self.G(fixed_z)
+                    # save fake image 
+                    save_sample(self.sample_path + '/fake_images/', fake_images, epoch)
                     
-            #     # sample sample one images
-            #     save_sample_one_image(self.sample_path, real_images, fake_images, epoch)
+                # sample sample one images
+                save_sample_one_image(self.sample_path, real_images, fake_images, epoch)
 
             # save model checkpoint
             if (epoch) % self.model_save_step == 0:

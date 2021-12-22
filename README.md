@@ -88,10 +88,14 @@ FID is a measure of similarity between two datasets of images. It was shown to c
 
 For the FID, I use the pytorch implement of this repository. [FID score for PyTorch](https://github.com/mseitzer/pytorch-fid)
 
-- MNIST
-For the 10k epochs training on MNIST dataset, I get the FID: 
-> 50.39915910592188 :warning: this score test with about 2430 sample images.
-> 45.773477203217055 :warning: this score test with about 10330 sample images, like the FID paper said that.
+For the 10k epochs training on different dataset, compare with about 10000 samples, I get the FID: 
+
+| dataset | DCGAN |
+| ---- | ---- |
+| MNIST | 42.45529067975039(9500epoch) |
+| FASHION-MNIST | null | 
+| CIFAR10 | null |
+
 - CIFAR10
 For the 10k epochs training on the CIFAR10 dataset, I get the FID: 
 > 86.59441398667008 :warning: this score test with about 2430 sample images.

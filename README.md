@@ -93,17 +93,8 @@ For the 10k epochs training on different dataset, compare with about 10000 sampl
 | dataset | DCGAN |
 | ---- | ---- |
 | MNIST | 42.45529067975039(9500epoch) |
-| FASHION-MNIST | null | 
-| CIFAR10 | null |
-
-- CIFAR10
-For the 10k epochs training on the CIFAR10 dataset, I get the FID: 
-> 86.59441398667008 :warning: this score test with about 2430 sample images.
-> 81.78541562553767 :warning: this score test with about 10330 sample images, like the FID paper said that.
-- FASHION-MNIST
-For the 10k epochs training on the CIFAR10 dataset, I get the FID: 
-> 95.55456444871709 :warning: this score test with about 2430 sample images.
-> 86.51294408805859 :warning: this score test with about 10330 sample images, like the FID paper said that.
+| FASHION-MNIST | 86.17794805798678(7800epoch) | 
+| CIFAR10 | 80.03665139141242(9200epoch) |
 
 > :warning: I dont konw if the FID is right or not, because I cant get the lowwer score like the paper or the other people get it. 
 ## Network structure

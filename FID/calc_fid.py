@@ -40,7 +40,8 @@ def fid_all_list(filePath, fid_dict={}):
         PATH_with_FILE = os.path.join(filePath, i)
         FILE_NAME = i
 
-        print('now file path:\t' + str(PATH_with_FILE))
+        print('now file path:\t' + str(PATH_with_FILE) + '\n')
+
         file_list = os.listdir(PATH_with_FILE)
         file_list.sort(key=lambda fn: os.path.getmtime(os.path.join(PATH_with_FILE,fn)) if not os.path.isdir(os.path.join(PATH_with_FILE,fn)) else 0)
         max_value = int(file_list[-1]) + 1
@@ -59,9 +60,10 @@ def fid_all_list(filePath, fid_dict={}):
 
             fid_dict[i] = float(res.stdout[6:-1])
 
-    with open('FID/' + FILE_NAME +'.log', "w") as tf:
+        # write to the log
+        with open('FID/' + FILE_NAME +'.log', "w") as tf:
 
-        print(PATH_with_FILE + '\n', file=tf)
+            print(PATH_with_FILE + '\n', file=tf)
 
-        pprint.pprint(sorted(fid_dict.items(), key=lambda kv:kv[1]), stream=tf)
-            
+            pprint.pprint(sorted(fid_dict.items(), key=lambda kv:kv[1]), stream=tf)
+                
